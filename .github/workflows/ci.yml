@@ -96,6 +96,13 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.platform.rust-target }}
+      # Ensure meson builds numpy from source with MSVC cl rather than falling
+      # back to MinGW gcc, which lacks a matching 32 bit python3 import library.
+      - name: Set up MSVC
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.platform.python-architecture == 'x86' && 'x86' || 'amd64' }}
       - name: Test
         # Not on PyPy, because no embedding API
         if: ${{ !startsWith(matrix.python-version, 'pypy') }}
