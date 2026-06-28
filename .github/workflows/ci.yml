@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - release-*
+      - abi3t
   pull_request:
 
 concurrency:
@@ -103,7 +104,10 @@ jobs:
           cargo test --all-features
       - name: Test abi3t
         if: ${{ matrix.python-version == '3.15t' }}
+        env:
+          UV_NO_BUILD_PACKAGE: ""
         run: |
+          uv pip install --reinstall "numpy @ git+https://github.com/numpy/numpy@refs/pull/31771/head"
           cargo test --all-features -F pyo3/abi3t
       - name: Test example
         run: |
@@ -292,6 +296,7 @@ jobs:
           nox -f examples/parallel/noxfile.py
 
   coverage:
+    if: github.repository_owner == 'PyO3'
     runs-on: ubuntu-latest
     needs: [lint, check-msrv, examples]
     steps:
