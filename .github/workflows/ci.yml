@@ -30,7 +30,7 @@ jobs:
     continue-on-error: ${{ startsWith(matrix.python-version, '3.15') }} # remove once 3.15 releases
     needs: [lint, check-msrv, examples]
     strategy:
-      fail-fast: ${{ !contains(github.event.pull_request.labels.*.name, 'CI-no-fail-fast') }}
+      fail-fast: false
       matrix:
         python-version:
           [
@@ -127,7 +127,7 @@ jobs:
     runs-on: ${{ matrix.platform.os }}
     needs: [lint, check-msrv, examples]
     strategy:
-      fail-fast: ${{ !contains(github.event.pull_request.labels.*.name, 'CI-no-fail-fast') }}
+      fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"] # last numpy 1 release for 3.12
         platform:

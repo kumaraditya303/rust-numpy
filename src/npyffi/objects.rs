@@ -14,6 +14,7 @@ pub const NPY_NTYPES_ABI_COMPATIBLE: usize = 21;
 pub const NPY_MAXDIMS_LEGACY_ITERS: usize = 32;
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct PyArrayObject_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -79,6 +80,7 @@ pub struct PyArray_DescrProto {
 }
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct _PyArray_DescrNumPy2 {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -97,6 +99,7 @@ pub struct _PyArray_DescrNumPy2 {
 }
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub(crate) struct _PyArray_LegacyDescr_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -401,6 +404,7 @@ pub struct PyArrayInterface {
 }
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct PyUFuncObject_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -469,6 +473,7 @@ pub type PyUFunc_TypeResolutionFunc = Option<
 pub struct NpyIter([u8; 0]);
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct PyArrayIterObject_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -497,6 +502,7 @@ pub use PyArrayIterObject_fields as PyArrayIterObject;
 opaque_struct!(pub PyArrayIterObject);
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct PyArrayMultiIterObject_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
@@ -516,6 +522,7 @@ pub use PyArrayMultiIterObject_fields as PyArrayMultiIterObject;
 opaque_struct!(pub PyArrayMultiIterObject);
 
 #[repr(C)]
+#[cfg_attr(all(Py_LIMITED_API, Py_GIL_DISABLED), repr(align(8)))]
 pub struct PyArrayNeighborhoodIterObject_fields {
     #[cfg(not(all(Py_LIMITED_API, Py_GIL_DISABLED)))]
     pub ob_base: PyObject,
